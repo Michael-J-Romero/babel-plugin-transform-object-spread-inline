@@ -1,4 +1,4 @@
-# babel-plugin-transform-object-spread-inline
+# babel-plugin-transform-object-spread-inline [![npm version](https://badge.fury.io/js/babel-plugin-transform-object-spread-inline.svg)](https://badge.fury.io/js/babel-plugin-transform-object-spread-inline)
 
 > Transpiles object spread into fast inline code.
 
