@@ -1,8 +1,8 @@
 {
-  "name": "babel-plugin-transform-es2015-modules-simple-amd",
-  "version": "0.3.0",
-  "description": "Simplified imports and exports",
-  "repository": "finom/babel-plugin-transform-es2015-modules-simple-amd",
+  "name": "babel-plugin-transform-object-spread-inline",
+  "version": "0.0.0",
+  "description": "Object spread transpiler",
+  "repository": "finom/babel-plugin-transform-object-spread-inline",
   "license": "MIT",
   "main": "dist/index.js",
   "dependencies": {
@@ -30,6 +30,7 @@
   },
   "keywords": [
     "babel-plugin",
-    "amd"
+    "syntax",
+		"spread"
   ]
 }

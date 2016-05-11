@@ -1,3 +1,24 @@
+import 'better-log/install';
+import template from "babel-template";
+const buildBegin = template(`
+	var KEYS, L, I, SOURCE, KEY, RESULT = {};
+`);
+const buildFor = template(`
+	for(
+		SOURCE = OBJECT,
+		KEYS = Object.keys(SOURCE),
+		L = KEYS.length,
+		I = 0;
+
+		I < L;
+
+		I++
+	) {
+		KEY = KEYS[I];
+		RESULT[KEY] = SOURCE[KEY];
+	}
+`);
+
 export default function({
 	types: t
 }) {
@@ -14,34 +35,48 @@ export default function({
 		inherits: require("babel-plugin-syntax-object-rest-spread"),
 
 		visitor: {
+			RestElement(path) {
+				console.log(path)
+			},
+
 			ObjectExpression(path, file) {
 				if (!hasSpread(path.node)) return;
+				const generated = [];
+				const vars = {};
 
-				let args = [];
-				let props = [];
-
-				function push() {
-					if (!props.length) return;
-					args.push(t.objectExpression(props));
-					props = [];
+				for(const varName of ['L', 'I', 'SOURCE', 'KEYS', 'KEY', 'RESULT']) {
+					vars[varName] = path.scope.generateUidIdentifier(varName.toLowerCase())
 				}
+
+				generated.push(buildBegin(vars));
 
 				for (let prop of path.node.properties) {
 					if (t.isSpreadProperty(prop)) {
-						push();
-						args.push(prop.argument);
+						generated.push(buildFor(Object.assign(vars, {
+							OBJECT: prop.argument
+						})));
 					} else {
-						props.push(prop);
+						// TODO how to add semicolon?
+						generated.push(t.assignmentExpression(
+							'=',
+							t.memberExpression(
+								vars.RESULT,
+								prop.key
+							),
+							prop.value
+						));
 					}
 				}
 
-				push();
+				let myPath = path;
 
-				if (!t.isObjectExpression(args[0])) {
-					args.unshift(t.objectExpression([]));
+				while(path.scope.path != myPath.parentPath) {
+					myPath = myPath.parentPath;
 				}
 
-				path.replaceWith(t.callExpression(file.addHelper("extends"), args));
+				myPath.insertBefore(generated);
+
+				path.replaceWith(vars.RESULT);
 			}
 		}
 	};

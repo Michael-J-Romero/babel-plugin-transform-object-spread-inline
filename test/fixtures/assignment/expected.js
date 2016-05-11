@@ -1,5 +1,20 @@
 "use strict";
 
-var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+var _keys,
+    _l,
+    _i,
+    _source,
+    _key,
+    _result = {};
 
-z = _extends({ x: x }, y);
+_result.b = b
+_result.c = c
+
+for (_source = d, _keys = Object.keys(_source), _l = _keys.length, _i = 0; _i < _l; _i++) {
+  _key = _keys[_i];
+  _result[_key] = _source[_key];
+}
+
+_result.e = e
+_result.f = 42
+a = _result;
