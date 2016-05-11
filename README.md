@@ -3,7 +3,7 @@
 > Transpiles object spread into fast inline code.
 
 ```js
-a = { b, c, ...d, e, f };
+a = { b, c, ...d, e, f: 42 };
 ```
 
 Converted to:
