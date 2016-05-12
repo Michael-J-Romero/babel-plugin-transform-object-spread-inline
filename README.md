@@ -11,7 +11,7 @@ Usage (via .babelrc)
 ```json
 {
 	"plugins": [
-		"babel-plugin-transform-object-spread-inline"
+		"transform-object-spread-inline"
 	]
 }
 ```
