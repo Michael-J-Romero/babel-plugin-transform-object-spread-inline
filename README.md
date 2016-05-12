@@ -16,12 +16,14 @@ Usage (via .babelrc)
 }
 ```
 
+## What does it do?
+
+Converts this kind of code:
 ```js
 a = { b, c, ...d, e, f: 42 };
 ```
 
-Converted to:
-
+To this:
 ```js
 "use strict";
 var _keys,
