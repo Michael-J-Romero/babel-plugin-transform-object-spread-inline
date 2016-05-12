@@ -2,6 +2,20 @@
 
 > Transpiles object spread to fast inline code.
 
+Installation:
+```sh
+npm install --save-dev babel-plugin-transform-object-spread-inline
+```
+
+Usage (via .babelrc)
+```json
+{
+	"plugins": [
+		"babel-plugin-transform-object-spread-inline"
+	]
+}
+```
+
 ```js
 a = { b, c, ...d, e, f: 42 };
 ```
