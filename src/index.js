@@ -64,18 +64,17 @@ export default function({
 								prop.key
 							),
 							prop.value
-						));
+						));//console.log(prop.value)
 					}
 				}
 
 				let myPath = path;
 
-				while(path.scope.path != myPath.parentPath) {
+				while(path.scope.path != myPath.parentPath && myPath.parentPath.parentPath.type !== 'FunctionDeclaration') {
 					myPath = myPath.parentPath;
 				}
 
 				myPath.insertBefore(generated);
-
 				path.replaceWith(vars.RESULT);
 			}
 		}
