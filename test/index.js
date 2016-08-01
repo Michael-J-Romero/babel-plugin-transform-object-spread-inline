@@ -31,7 +31,7 @@ function runTest(dir) {
 	var expected = fs.readFileSync(dir.path + '/expected.js', 'utf-8');
 
 	function normalizeLines(str) {
-		return str.replace(/\r\n/g, '\n').trimRight();
+		return str.replace(/\r\n/g, '\n').replace(/    /g, '\t').trimRight();
 	}
 
 	var normalizedOutput = normalizeLines(output.code);

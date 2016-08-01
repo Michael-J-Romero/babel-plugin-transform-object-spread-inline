@@ -70,7 +70,9 @@ export default function({
 
 				let myPath = path;
 
-				while(path.scope.path != myPath.parentPath && myPath.parentPath.parentPath.type !== 'FunctionDeclaration') {
+				while(path.scope.path != myPath.parentPath
+						&& myPath.parentPath.parentPath.type !== 'FunctionDeclaration'
+						&& myPath.parentPath.parentPath.type !== 'FunctionExpression') {
 					myPath = myPath.parentPath;
 				}
 
