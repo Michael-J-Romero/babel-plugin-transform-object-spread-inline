@@ -1,5 +1,5 @@
 import 'better-log/install';
-import template from "babel-template";
+import template from "@babel/template";
 const buildBegin = template(`
 	var KEYS, L, I, SOURCE, KEY, RESULT = {};
 `);
@@ -19,12 +19,13 @@ const buildFor = template(`
 	}
 `);
 
+
 export default function({
 	types: t
 }) {
 	function hasSpread(node) {
 		for (let prop of node.properties) {
-			if (t.isSpreadProperty(prop)) {
+			if (t.isSpreadElement(prop)) {
 				return true;
 			}
 		}
@@ -32,13 +33,8 @@ export default function({
 	}
 
 	return {
-		inherits: require("babel-plugin-syntax-object-rest-spread"),
-
+		// inherits: require("@babel/plugin-syntax-object-rest-spread"),
 		visitor: {
-			RestElement(path) {
-				console.log(path)
-			},
-
 			ObjectExpression(path, file) {
 				if (!hasSpread(path.node)) return;
 				const generated = [];
@@ -51,7 +47,7 @@ export default function({
 				generated.push(buildBegin(vars));
 
 				for (let prop of path.node.properties) {
-					if (t.isSpreadProperty(prop)) {
+					if (t.isSpreadElement(prop)) {
 						generated.push(buildFor(Object.assign(vars, {
 							OBJECT: prop.argument
 						})));
@@ -64,7 +60,7 @@ export default function({
 								prop.key
 							),
 							prop.value
-						));//console.log(prop.value)
+						));
 					}
 				}
 
